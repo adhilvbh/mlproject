@@ -7,6 +7,9 @@ import os
 import sys
 # sys.path.append("/Users/adhilaseem/Desktop/mlproject/src")
 
+from src.components.data_transformation import DataTransformation
+from src.components.data_transformation import DataTransformationConfig
+
 
 @dataclass
 class DataIngestionConfig:
@@ -41,7 +44,7 @@ class DataIngestion:
             test_set.to_csv(self.ingestion_config.test_data_path,
                             index=False, header=True)
 
-            logging.info("Inmgestion of the data iss completed")
+            logging.info("Ingestion of the data is completed")
 
             return (
                 self.ingestion_config.train_data_path,
@@ -54,4 +57,7 @@ class DataIngestion:
 
 if __name__ == "__main__":
     obj = DataIngestion()
-    obj.initiate_data_ingestion()
+    train_data, test_data = obj.initiate_data_ingestion()
+
+    data_transformation = DataTransformation()
+    data_transformation.initiate_data_transformation(train_data, test_data)
